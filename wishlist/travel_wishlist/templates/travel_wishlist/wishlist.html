@@ -6,14 +6,14 @@
 <form method="POST" action="{% url 'place_list' %}"><!--need POST because adding something.Don't hardcode a url into action, as urls can change. 'place_list' is homepage name in urls.py-->
     {% csrf_token %}<!--needed or the page won't work. Used to prevent unwanted actions from bad actors-->
     {{ new_place_form }}
-    <button type="submit">Add</button><!--django form objects comes with basic validaion for inputs like these-->
+    <button id="add-new-place" type="submit">Add</button><!--django form objects comes with basic validaion for inputs like these-->
 </form><!--form contains the name input text box, visited check box, and add button, The former 2 are set to 200 chars and unchecked respectively-->
 
 {% for place in places %}<!--django template tag syntax. used by django for logic in htm; templates. for loop going over Place list-->
 
-<div>
-    {{place.name}}<!--needs double bracket needs for variables-->
-    <form method="POST" action="{% url 'place_was_visited' place.pk %}"><!--Need a form element to generate a request to server. method is the type of request, action is the uel to use.-->
+<div class="wishlist-place">
+    <span class="place-name">{{place.name}}</span><!--needs double bracket needs for variables-->
+    <form class="visited-form" method="POST" action="{% url 'place_was_visited' place.pk %}"><!--Need a form element to generate a request to server. method is the type of request, action is the uel to use.-->
                                                         <!--need place.pk argument to link specific visited buttons their specific Place objects using primary keys (url reversing)-->
         {% csrf_token %}<!--needed or the page won't work. Used to prevent unwanted actions from bad actors-->
         <button>Visited</button>
@@ -26,4 +26,4 @@
 
 {% endfor %}<!--directive to end loop-->
 
-{% endblock %}https://github.com.oxalorg/sakura
+{% endblock %}

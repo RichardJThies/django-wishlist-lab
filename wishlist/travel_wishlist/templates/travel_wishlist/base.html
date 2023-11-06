@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %}<!--allows access to static directory-->
 
 <!DOCTYPE html><!--inform browser that the code is html-->
 <html><!--contains all the html-->
@@ -7,7 +7,7 @@
             Travel Wishlist
         </title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css" type="text/css"><!--CDN link for Sakura styling-->
-        <link rel="stylesheet" gref="{% static 'css/styles.css' %}" type="text/css"><!--link to custom css-->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css"><!--link to custom css-->
     </head>
 
     <h1>Where would you like to go?</h1>
@@ -22,8 +22,8 @@
             A travel wishlist, built with django
         </p>
 
-        <a href="{% url 'place_list' %}">Your wishlist</a><!--the django '' won't conflict with the regular "" outside html syntax-->
-        <a href="{% url 'places_visited' %}">Places you've visited</a><!--Creating links to other pages with django syntax-->
+        <a class="nav-link" href="{% url 'place_list' %}">Your wishlist</a><!--the django '' won't conflict with the regular "" outside html syntax-->
+        <a class="nav-link" href="{% url 'places_visited' %}">Places you've visited</a><!--Creating links to other pages with django syntax-->
     </div>
 
 </html>

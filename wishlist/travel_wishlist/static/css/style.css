@@ -1,26 +1,29 @@
-span.place_name {/**/
-    display: inline-block;
-    width: 70%;
+span.place-name {/*styles for Place object names*/
+    display: inline-block;/*ensures they display on one line*/
+    width: 70%;/*how much of the screen the Place objects take up*/
 }
 
-form.visited-form {/**/
-    display: inline;
+form.visited-form {/*button to visit a place*/
+    display: inline;/*display on one line, but different syntax*/
 }
 
-div.wishlist-place {/**/
-    margin: 20px;
+div.wishlist-place {
+    margin: 20px;/*adding some space between objects*/
 }
 
-label {
+label {/*label elements created by django*/
     display: inline-block;
     padding-right: 8px;
 }
 
-a.nav-link {
-    padding-right: 10px;
+a.nav-link {/*the links in the footnotes*/
+    margin-right: 10px;
 }
 
-
+#add-new-place {
+    background-color: red;
+    border: darkred
+}
 
 
 
