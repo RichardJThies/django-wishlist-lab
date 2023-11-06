@@ -1,3 +1,6 @@
+{% extends 'travel_wishlist/base.html' %}
+{% block content %}
+
 <h2>Travel Wishlist</h2>
 
 <form method="POST" action="{% url 'place_list' %}"><!--need POST because adding something.Don't hardcode a url into action, as urls can change. 'place_list' is homepage name in urls.py-->
@@ -23,6 +26,4 @@
 
 {% endfor %}<!--directive to end loop-->
 
-<a href="{% url 'places_visited' %}">Places you've visited</a><!--Creating links to other pages with django syntax-->
-
-
+{% endblock %}

@@ -1,4 +1,6 @@
-<he>Places you have visited</he>
+{% extends 'travel_wishlist/base.html' %}
+{% block content %}
+<h2>Places you have visited</h2>
 
 {% if visited %}<!--conditional rendering-->
 
@@ -14,14 +16,4 @@
 
 {% endif %}
 
-<a href="{% url 'place_list' %}">Your wishlist</a><!--the django '' won't conflict with the regular "" outside html syntax-->
-
-
-
-
-
-
-
-
-
-
+{% endblock %}

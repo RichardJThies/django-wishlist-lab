@@ -14,13 +14,3 @@ urlpatterns = [#list of urls that app will recognize
 
 
 
-
-
-
-
-
-
-
-
-
-
