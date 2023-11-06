@@ -1,0 +1,16 @@
+env_setup.txt
+venv/
+env/
+.venv/
+*.env
+.vscode/
+*.pyc
+__pycache__/
+__pycache__
+dist/
+build/
+*.egg-info/
+node_modules/
+.vscode
+db.sqlite3
+info_about_some_modules.md

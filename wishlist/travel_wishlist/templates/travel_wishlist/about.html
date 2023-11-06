@@ -1,0 +1,31 @@
+<h2>About</h2>
+
+<div>
+    <p>{{ about }}</p><!--placeholders that will receive the variables of the same names from views.py-->
+    
+    <p>A website by {{ author }}</p>
+
+    {%if author %}<!--conditional rendering-->
+
+    <p>The author's name has been provided</p><!--In python, string with text is true, if condition is true, render this on page. Set variable in view.py to '' to make false-->
+
+    {% else %}
+
+    <p>The author's name has not been provided.</p>
+
+    {% endif %}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

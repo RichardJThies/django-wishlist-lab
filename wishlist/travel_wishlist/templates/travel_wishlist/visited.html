@@ -1,0 +1,27 @@
+<he>Places you have visited</he>
+
+{% if visited %}<!--conditional rendering-->
+
+<ul><!--unordered list, list items have bullet points-->
+    {% for place in visited %}
+        <li>{{place.name}}</li>
+    {% endfor %}
+</ul>
+
+{% else %}
+
+<p>You have not visited any places yet</p>
+
+{% endif %}
+
+<a href="{% url 'place_list' %}">Your wishlist</a><!--the django '' won't conflict with the regular "" outside html syntax-->
+
+
+
+
+
+
+
+
+
+
