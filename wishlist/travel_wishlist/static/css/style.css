@@ -20,7 +20,7 @@ a.nav-link {/*the links in the footnotes*/
     margin-right: 10px;
 }
 
-#add-new-place {
+#add-new-place {/*button adding places*/
     background-color: red;
     border: darkred
 }
