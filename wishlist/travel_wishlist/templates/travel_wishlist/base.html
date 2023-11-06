@@ -1,9 +1,13 @@
+{% load static %}
+
 <!DOCTYPE html><!--inform browser that the code is html-->
 <html><!--contains all the html-->
     <head>
         <title><!--Will be displayed in the browser tab-->
             Travel Wishlist
         </title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css" type="text/css"><!--CDN link for Sakura styling-->
+        <link rel="stylesheet" gref="{% static 'css/styles.css' %}" type="text/css"><!--link to custom css-->
     </head>
 
     <h1>Where would you like to go?</h1>
