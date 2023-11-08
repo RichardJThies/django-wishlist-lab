@@ -84,10 +84,11 @@ class TestVisitPlace(TestCase):#testing db is updating correctly after requests 
         new_york = Place.objects.get(pk=2)#pulling NY out of db using the pk
         self.assertTrue(new_york.visited)#is YK visited?
 
-
-
-
-
+    def test_nonexistant_place(self):
+        visit_nonxistant_place_url = reverse('place_was_visited', args=(1235, ))#creating a url using a pk that doesn't exist
+        response = self.client.post(visit_nonxistant_place_url, follow=True)#make request to add place/create data, alhtough not sending data here, it's in the url already 
+        self.assertEqual(404, response.status_code)#since the Place does not exist, should return 404 error
+        #could be expanded to check db and ensure nothing was modified
 
 
 
