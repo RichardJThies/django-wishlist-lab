@@ -69,6 +69,20 @@ class TestAddNewPlace(TestCase):#how would the 3 As work here?
         tokyo_from_db = Place.objects.get(name="Tokyo", visited=False)#pull out that 1 added place
         self.assertEqual(tokyo_from_db, tokyo_from_response)
 
+class TestVisitPlace(TestCase):#testing db is updating correctly after requests to visit Places
+    fixtures = ['test_places']
+
+    def test_visit_place(self):
+        visit_place_url = reverse('place_was_visited', args=(2, ))#reverse can have more than 1 argument. args is a tuple of data, turns into data for url placeholder, pk 2 in this case
+        response = self.client.post(visit_place_url, follow=True)#make request to add place/create data, alhtough not sending data here, it's in the url already 
+
+        self.assertTemplateUsed(response, 'travel_wishlist/wishlist.html')#use /visited instead to redirect if testing for visited data
+
+        self.assertNotContains(response, 'New York')#ensures pk 2 (New York) is not there. If testing /visited, reverse Contains and NotContains
+        self.assertContains(response, 'Tokyo')
+
+        new_york = Place.objects.get(pk=2)#pulling NY out of db using the pk
+        self.assertTrue(new_york.visited)#is YK visited?
 
 
 
