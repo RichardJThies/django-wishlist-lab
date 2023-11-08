@@ -39,16 +39,37 @@ class TestVisited(TestCase):#seperate test case that is very similar to to TestH
         self.assertTemplateUsed(response, 'travel_wishlist/visited.html')#compare response to expected template
         self.assertContains(response, 'You have not visited any places yet')#django test: compare response to content on page
 
-class TestVisitedPlaces(TestCase):#not quite sure if I understand this one, and how it works compared to TestWishlist
+class TestVisitedPlaces(TestCase):#look at wishlist.html vs visited.html, their empty list messages illuminate why the cities are placed where they are
+    #arrange?
     fixtures = ['test_places']
     
     def test_visited_contains_only_visited_places_(self):
+        #act?
         response = self.client.get(reverse('places_visited'))
+        #assert?
         self.assertTemplateUsed(response, 'travel_wishlist/visited.html')#correct template again?
-        self.assertContains(response, 'San Francisco')#how would you change test_places so this can be true? edit fixtures?
+        self.assertContains(response, 'San Francisco')
         self.assertContains(response, 'Moab')
         self.assertNotContains(response, 'Tokyo')
         self.assertNotContains(response, 'New York')
+
+class TestAddNewPlace(TestCase):#how would the 3 As work here?
+    def test_add_new_unvisited_place(self):
+        add_place_url = reverse('place_list')#figuring out the urls? place_list uses POST to add new places as GET to display places
+        new_place_data = {'name': 'Tokyo', 'visited': False}
+
+        response = self.client.post(add_place_url, new_place_data, follow=True)#make request to add place/create data. 
+                                #^^follow=True is because POST is really 2 requests, data is saved , then a redirect to homepage.follow=True ensures the 2nd request is followed, which is not the default behavior^^
+
+        self.assertTemplateUsed(response, 'travel_wishlist/wishlist.html') 
+        response_places = response.context['places']#from views.py, pull out the places value from dictionary. Allows examination of the data being sent to template
+        self.assertEqual(1, len(response_places))#ensure only 1 places is added to empty (test?) db
+        tokyo_from_response = response_places[0]#element 0, of a list of places from the response
+
+        tokyo_from_db = Place.objects.get(name="Tokyo", visited=False)#pull out that 1 added place
+        self.assertEqual(tokyo_from_db, tokyo_from_response)
+
+
 
 
 

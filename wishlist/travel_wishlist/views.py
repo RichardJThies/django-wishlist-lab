@@ -4,7 +4,7 @@ from .forms import NewPlaceForm
 
 """Views are the controller, sending specific responses to be displayed"""
 # Create your views here.
-def place_list(request):#function takes only request argument. Will be called by django and sent information about the request from client/browser/user
+def place_list(request):#function takes only request argument. Will be called by django and sent information about the request from client/browser/user. Display places & adds new places?
     if request.method == 'POST':
         #create new place
         form = NewPlaceForm(request.POST)#creating a form data that is sent in inputted request from user
