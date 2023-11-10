@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Place
 from .forms import NewPlaceForm
 from django.contrib.auth.decorators import login_required#ensuring views are only visible while logged in
-
+from django.http import HttpResponseForbidden #security library? 
 
 """Views are the controller, sending specific responses to be displayed"""
 @login_required
@@ -39,8 +39,11 @@ def place_was_visited(request, place_pk):#place_pk is variable pulling out the p
     if request.method == 'POST':
         # place = Place.objects.get(pk=place_pk)#db query. Pulling out single object that is being updated with POST. pk is the primary key db column.Will raise does not exist error if pk=something !exist
         place = get_object_or_404(Place, pk=place_pk)#django method. Needs the name of the class/model, and the db query. Will attempt get requests as normal, but if pk !exist, will return 404 error, will not crash
-        place.visited = True#Working only with the True values? Or does it change the visited Boolean?
-        place.save()#ensuring the changes are committed
+        if place.user == request.user:#checking is user allowed to make this request (Place belongs to that user?), if so make commits, then direct
+            place.visited = True#Working only with the True values? Or does it change the visited Boolean?
+            place.save()#ensuring the changes are committed
+        else:
+            return HttpResponseForbidden#if not allowed to make request, send this forbidden response
 
     return redirect('place_list')#reloads/revisits the home page. 
     #return redirect('places_visited)#Could be the name of another path to go somewhere else after the POST
