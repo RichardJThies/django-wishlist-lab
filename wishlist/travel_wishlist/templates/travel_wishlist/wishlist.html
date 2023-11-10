@@ -12,8 +12,10 @@
 {% for place in places %}<!--django template tag syntax. used by django for logic in htm; templates. for loop going over Place list-->
 
 <div class="wishlist-place">
-    <span class="place-name">{{place.name}}</span><!--needs double bracket needs for variables-->
-    <form class="visited-form" method="POST" action="{% url 'place_was_visited' place.pk %}"><!--Need a form element to generate a request to server. method is the type of request, action is the uel to use.-->
+    <span  class="place-name">
+        <a href="{% url 'place_details' place.pk %}">{{place.name}}</a><!--turning Place names into links. djago builds url using path(), and the pk of each Place object-->
+    </span><!--needs double bracket needs for variables-->
+    <form class="visited-form" method="POST" action="{% url 'place_was_visited' place.pk %}"><!--Need a form element to generate a request to server. method is the type of request, action is the url to use.-->
                                                         <!--need place.pk argument to link specific visited buttons their specific Place objects using primary keys (url reversing)-->
         {% csrf_token %}<!--needed or the page won't work. Used to prevent unwanted actions from bad actors-->
         <button>Visited</button>

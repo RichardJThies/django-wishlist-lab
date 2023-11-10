@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-class Place(models.Model):#this subclass describes Place table in db with 2 columns
+class Place(models.Model):#this subclass describes Place table in db with 2 columns #The order of variables also seems to determine how they show up in the admin console
     name = models.CharField(max_length=200)#constraint
     visited = models.BooleanField(default=False)#assuming that users haven't visited places they add
     user = models.ForeignKey('auth.User', null=False, on_delete=models.CASCADE)#ForeignKey()is built into django models, 'auth.User' is the name of the other table (must be string), null=False is a constraint, cannot be null,
