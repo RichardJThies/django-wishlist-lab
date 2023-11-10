@@ -52,3 +52,6 @@ def place_was_visited(request, place_pk):#place_pk is variable pulling out the p
 def place_details(request, place_pk):#place_pk is the captured stand-in in the respective urls.py path()
     place = get_object_or_404(Place, pk=place_pk)
     return render(request, 'travel_wishlist/place_detail.html', {'place': place})#sending individual Place object
+
+
+

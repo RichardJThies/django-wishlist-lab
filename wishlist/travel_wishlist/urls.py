@@ -7,7 +7,8 @@ urlpatterns = [#list of urls that app will recognize
     path('about', views.about, name='about'),
     path('visited', views.places_visited, name='places_visited'),
     path('place/<int:place_pk>/was_visited/', views.place_was_visited, name='place_was_visited'),#place_pk is a stand in for a variable name which is an int
-    path('place/<int:place_pk>', views.place_details, name='place_details')#using <> stand-ins is called capturing
+    path('place/<int:place_pk>', views.place_details, name='place_details'),#using <> stand-ins is called capturing
+    path('place/<int:place_pk>/delete', views.delete_place, name="delete_place")#each url must be unique, as in '/delete' makes is unique
 ]
 
 
