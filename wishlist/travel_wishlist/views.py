@@ -53,5 +53,11 @@ def place_details(request, place_pk):#place_pk is the captured stand-in in the r
     place = get_object_or_404(Place, pk=place_pk)
     return render(request, 'travel_wishlist/place_detail.html', {'place': place})#sending individual Place object
 
-
-
+@login_required
+def delete_place(request, place_pk):
+    place = get_object_or_404(request, pk=place_pk)#get the Place from db, as before
+    if place.user == request.user:
+        place.delete()#where does delete() come from? The route is deleting the Place , apparently?
+        return redirect('place_list')#must return something, or the browser will timeout eventually
+    else:
+        return HttpResponseForbidden
