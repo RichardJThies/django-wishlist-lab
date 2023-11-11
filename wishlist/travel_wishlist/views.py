@@ -3,6 +3,8 @@ from .models import Place
 from .forms import NewPlaceForm
 from django.contrib.auth.decorators import login_required#ensuring views are only visible while logged in
 from django.http import HttpResponseForbidden #security library? 
+from .forms import TripReviewForm
+from django.contrib import messages
 
 """Views are the controller, sending specific responses to be displayed"""
 @login_required
@@ -51,7 +53,31 @@ def place_was_visited(request, place_pk):#place_pk is variable pulling out the p
 @login_required
 def place_details(request, place_pk):#place_pk is the captured stand-in in the respective urls.py path()
     place = get_object_or_404(Place, pk=place_pk)
-    return render(request, 'travel_wishlist/place_detail.html', {'place': place})#sending individual Place object
+    #does this Place belong to current user?
+    if place.user != request.user:
+        return HttpResponseForbidden()
+    #is this GET or POST request? GET is to show data & form, POST is to update the Place object
+    
+    #if POST request, validate form & update
+    if request.method == 'POST':
+        form = TripReviewForm(request.POST, request.FILES, instance=place)#read form data, request.Post is whatever was entered into form, request.FILES are uploaded files (images), instance=place is using
+                                                                                                                                                     #^^the form two to update a model instance from the db^^. 
+        #Form has 2 meanings in django. Form created in GET, sent to template to render html for web page, or form object in POST, never displayed to users, but is the data filled into a form. However, the
+        #are actually the same object, used in different contexts?
+        if form.is_valid(): #in django, is_valid() means: 'are the required fields of the db filled in, and are they correct data?'
+            form.save()#Place opject gets updated with request.POST data & request.FILES uploaded files/imgs
+            messages.info(request, 'Trip infomation updated.')#django messages allow showing temp messages to user
+        else:
+            messages.info(request, form.errors)#form.errors temp
+        return redirect('place_details', place_pk=place_pk)
+    else:   
+        #if GET request, show Place info & optional form
+        #if place visited, show form, otherwise, do not
+        if place.visited:
+            review_form = TripReviewForm(instance=place)#place LOOK @ 10:17 TO CONTINUE COMMENTS
+            return render(request, 'travel_wishlist/place_detail.html', {'place': place, 'review_form': review_form})
+        else:
+            return render(request, 'travel_wishlist/place_detail.html', {'place': place})#sending individual Place object
 
 @login_required
 def delete_place(request, place_pk):
