@@ -55,9 +55,9 @@ def place_details(request, place_pk):#place_pk is the captured stand-in in the r
 
 @login_required
 def delete_place(request, place_pk):
-    place = get_object_or_404(request, pk=place_pk)#get the Place from db, as before
+    place = get_object_or_404(Place, pk=place_pk)#get the Place that is being deleted from
     if place.user == request.user:
-        place.delete()#where does delete() come from? The route is deleting the Place , apparently?
+        place.delete()#where does delete() come from? The route is deleting the Place, apparently? Maybe the delete class in the template
         return redirect('place_list')#must return something, or the browser will timeout eventually
     else:
         return HttpResponseForbidden
