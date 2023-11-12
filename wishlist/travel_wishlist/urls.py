@@ -11,8 +11,10 @@ urlpatterns = [#list of urls that app will recognize
     path('place/<int:place_pk>/delete', views.delete_place, name="delete_place")#each url must be unique, as in '/delete' makes is unique
 ]
 
+from django.conf import settings
+from django.conf.urls.static import static
 
-
-
+if settings.DEBUG:#running local  development server? static routes on local computer defined in settings used
+    urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
