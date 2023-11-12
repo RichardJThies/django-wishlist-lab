@@ -74,7 +74,7 @@ def place_details(request, place_pk):#place_pk is the captured stand-in in the r
         #if GET request, show Place info & optional form
         #if place visited, show form, otherwise, do not
         if place.visited:
-            review_form = TripReviewForm(instance=place)#place LOOK @ 10:17 TO CONTINUE COMMENTS
+            review_form = TripReviewForm(instance=place)
             return render(request, 'travel_wishlist/place_detail.html', {'place': place, 'review_form': review_form})
         else:
             return render(request, 'travel_wishlist/place_detail.html', {'place': place})#sending individual Place object
