@@ -6,7 +6,9 @@
 
 <ul><!--unordered list, list items have bullet points-->
     {% for place in visited %}
-        <li>{{place.name}}</li>
+        <li>
+            <a href="{% url 'place_details' place.pk %}">{{place.name}}</a><!--turning Place names into links. djago builds url using path(), and the pk of each Place object-->
+        </li>
     {% endfor %}
 </ul>
 
