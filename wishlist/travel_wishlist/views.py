@@ -45,7 +45,7 @@ def place_was_visited(request, place_pk):#place_pk is variable pulling out the p
             place.visited = True#Working only with the True values? Or does it change the visited Boolean?
             place.save()#ensuring the changes are committed
         else:
-            return HttpResponseForbidden#if not allowed to make request, send this forbidden response
+            return HttpResponseForbidden() #if not allowed to make request, send this forbidden response
 
     return redirect('place_list')#reloads/revisits the home page. 
     #return redirect('places_visited)#Could be the name of another path to go somewhere else after the POST
@@ -86,4 +86,4 @@ def delete_place(request, place_pk):
         place.delete()#where does delete() come from? The route is deleting the Place, apparently? Maybe the delete class in the template
         return redirect('place_list')#must return something, or the browser will timeout eventually
     else:
-        return HttpResponseForbidden
+        return HttpResponseForbidden()
